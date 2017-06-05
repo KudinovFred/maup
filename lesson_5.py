@@ -17,6 +17,12 @@ print(obj2)
 
 
 class Vector(list):
+    def __add__(self, other):
+        return Vector([x+y for x,y in zip (self,other)])
+
+
+    def __sub__(self, other):
+        return Vector([x-y for x,y in zip (self,other)])
 
     def __mul__(self, other):
         return sum([x*y for x,y in zip (self,other)])
@@ -44,8 +50,8 @@ class Matrix(list):
     def transp(self):
         return Matrix(list(zip(*self)))
 
-    def __MxV(self, lst):
-        return [Vector(l1)*Vector(lst) for lst in self]
+    def __MxV(self, vector):
+        return [Vector(vector)*Vector(lst) for lst in self]
 
     def __mul__(self, other):
         return Matrix([self.__MxV(lst) for lst in other.transp()])
@@ -58,3 +64,8 @@ print(N.transp())
 
 c = N*M
 print(c)
+
+
+x = Vector([1,2,3])
+y = Vector([1,2,3])
+print (x-y)
