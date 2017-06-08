@@ -196,16 +196,39 @@ assert attr.fields(C1) == attr.fields(C2), (attr.fields(C1) ,"_____", attr.field
 C3 = attr.make_class("C3", {"x":attr.ib(),"y":attr.ib()})
 assert attr.fields(C1) == attr.fields(C3), (attr.fields(C1) ,"_____", attr.fields(C3))
 
+
+#class and subclass
+
 @attr.s
 class D(object):
+    z = attr.ib()
     x = attr.ib(default=31)
+
 
     def __eq__(self, other):
        return True  # arbitrary example
 
+
+
 # create subclass of D,   cmp - false as it is subcass
-C = attr.make_class("C", {"z":attr.ib(default=1)}, bases=(D,), cmp=False)
-assert isinstance(C( x = "x",z = 321), D)
+
+C = attr.make_class("C", {"y":attr.ib(12)}, bases=(D,), cmp=False)
+
+assert isinstance(C(1, x="x", y=321), D)
+
+c = C(1, x = 789, y =64)
+
+
+
+
+
+
+
+
+
+
+
+
 
 print(inspect.getsource(C.__init__))
 
